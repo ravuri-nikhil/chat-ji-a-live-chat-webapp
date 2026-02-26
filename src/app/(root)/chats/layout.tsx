@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import DMChatItem from "./_components/DMChatItem";
 import CreateGroupDialog from "./_components/CreateGroupDialog";
+import GroupChatItem from "./_components/GroupChatItem";
 
 type Props = React.PropsWithChildren<object>;
 
@@ -23,7 +24,15 @@ export default function ChatsLayout({ children }: Props) {
             </Card>
           ) : (
             chats.map((chat) => {
-              return chat.chat.isGroup ? null : (
+              return chat.chat.isGroup ? (
+                <GroupChatItem
+                  key={chat.chat._id}
+                  id={chat.chat._id}
+                  name={chat.chat.name || ""}
+                  lastMessageContent={chat.lastMessage?.content}
+                  lastMessageSender={chat.lastMessage?.sender}
+                />
+              ) : (
                 <DMChatItem
                   key={chat.chat._id}
                   id={chat.chat._id}

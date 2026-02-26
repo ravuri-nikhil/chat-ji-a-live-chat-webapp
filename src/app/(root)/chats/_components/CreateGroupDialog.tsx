@@ -89,11 +89,11 @@ export default function CreateGroupDialog({}: Props) {
     <Dialog>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button size="icon" variant="outline">
-            <DialogTrigger>
+          <DialogTrigger asChild>
+            <Button size="icon" variant="outline">
               <CirclePlus />
-            </DialogTrigger>
-          </Button>
+            </Button>
+          </DialogTrigger>
         </TooltipTrigger>
 
         <TooltipContent>
