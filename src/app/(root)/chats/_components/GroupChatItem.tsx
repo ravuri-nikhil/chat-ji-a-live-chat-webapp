@@ -18,7 +18,7 @@ export default function GroupChatItem({
 }: Props) {
   return (
     <Link href={`/chats/${id}`} className="w-full">
-      <Card className="p-2 flex flex-row items-center gap-4 truncate">
+      <Card className="px-2 py-1 flex flex-row items-center gap-4 truncate">
         <div className="flex flex-row items-center gap-4 truncate">
           <Avatar>
             <AvatarFallback>

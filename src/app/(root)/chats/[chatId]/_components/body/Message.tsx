@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { format, isThisYear, isToday } from "date-fns";
 
 type Props = {
   fromCurrentUser: boolean;
@@ -22,7 +22,16 @@ export default function Message({
   type,
 }: Props) {
   const formatTime = (timestamp: number) => {
-    return format(timestamp, "HH:mm");
+    const date = new Date(timestamp);
+    if (isToday(date)) {
+      return format(date, "h:mm aa");
+    }
+
+    if (!isThisYear(date)) {
+      return format(date, "MMM d yyyy, h:mm aa");
+    }
+
+    return format(date, "MMM d, h:mm aa");
   };
 
   return (

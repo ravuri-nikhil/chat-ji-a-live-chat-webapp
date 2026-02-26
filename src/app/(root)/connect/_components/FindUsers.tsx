@@ -63,7 +63,7 @@ export default function FindUsers({ users }: Props) {
             <Card key={user._id} className="w-full p-1">
               <Button
                 disabled={friendshipPending}
-                className="flex items-center gap-4 truncate"
+                className="flex justify-start items-center gap-4 truncate"
                 onClick={async () => await onUserClickHandler(user._id)}
                 variant={"outline"}
               >
@@ -73,7 +73,7 @@ export default function FindUsers({ users }: Props) {
                     <User />
                   </AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col truncate">
+                <div className="flex flex-col items-start truncate">
                   <h4 className="truncate">{user.username}</h4>
                   <p className="text-xs text-muted-foreground truncate">
                     {user.email}
