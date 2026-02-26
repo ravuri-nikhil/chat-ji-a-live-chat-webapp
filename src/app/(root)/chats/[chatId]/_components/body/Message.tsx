@@ -46,12 +46,12 @@ export default function Message({
           })}
         >
           {type === "text" ? (
-            <p className="text-wrap wrap-break-word whitespace-pre-wrap">
+            <p className="text-wrap wrap-break-word whitespace-pre-wrap break-all">
               {content}
             </p>
           ) : null}
           <p
-            className={cn("text-xs flex w-full my-1", {
+            className={cn("text-xs flex w-full", {
               "text-primary-foreground justify-end": fromCurrentUser,
               "text-secondary-foreground justify-start": !fromCurrentUser,
             })}

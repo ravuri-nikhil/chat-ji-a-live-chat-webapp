@@ -10,6 +10,7 @@ import ChatInput from "./_components/input/ChatInput";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import RemoveFriendDialog from "./_components/dialogs/RemoveFriendDialog";
+import DeleteGroupDialog from "./_components/dialogs/DeleteGroupDialog";
 
 export default function ChatPage() {
   const { chatId } = useParams<{ chatId: Id<"chats"> }>();
@@ -34,6 +35,11 @@ export default function ChatPage() {
         chatId={chatId}
         open={removeFriendDialogOpen}
         setOpen={setRemoveFriendDialogOpen}
+      />
+      <DeleteGroupDialog
+        chatId={chatId}
+        open={deleteGroupDialogOpen}
+        setOpen={setDeleteGroupDialogOpen}
       />
       <Header
         imageUrl={chat.isGroup ? undefined : chat.otherMember?.imageUrl}
