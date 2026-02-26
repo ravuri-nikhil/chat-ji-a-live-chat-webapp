@@ -36,8 +36,8 @@ export default function ChatPage() {
         setOpen={setRemoveFriendDialogOpen}
       />
       <Header
-        imageUrl={chat.isGroup ? undefined : chat.otherMember.imageUrl}
-        name={(chat.isGroup ? chat.name : chat.otherMember.username) || ""}
+        imageUrl={chat.isGroup ? undefined : chat.otherMember?.imageUrl}
+        name={(chat.isGroup ? chat.name : chat.otherMember?.username) || ""}
         options={
           chat.isGroup
             ? [

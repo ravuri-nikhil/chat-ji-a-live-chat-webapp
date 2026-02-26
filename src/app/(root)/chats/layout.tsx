@@ -6,6 +6,7 @@ import { api } from "../../../../convex/_generated/api";
 import { Loader2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import DMChatItem from "./_components/DMChatItem";
+import CreateGroupDialog from "./_components/CreateGroupDialog";
 
 type Props = React.PropsWithChildren<object>;
 
@@ -14,7 +15,7 @@ export default function ChatsLayout({ children }: Props) {
 
   return (
     <>
-      <ItemList title="Chats">
+      <ItemList title="Chats" action={<CreateGroupDialog />}>
         {chats ? (
           chats.length === 0 ? (
             <Card className="w-full h-[calc(100%-50px)] flex items-center justify-center bg-accent text-accent-foreground">

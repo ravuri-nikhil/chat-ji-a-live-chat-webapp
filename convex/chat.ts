@@ -1,5 +1,5 @@
 import { ConvexError, v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { getUserByClerkId } from "./_utils";
 
 export const getChat = query({
@@ -51,6 +51,49 @@ export const getChat = query({
         },
         otherMembers: null,
       };
+    } else {
+      const otherMembers = await Promise.all(
+        allChatMemberships
+          .filter((membership) => membership.memberId !== currentUser._id)
+          .map(async (membership) => {
+            const member = await ctx.db.get(membership.memberId);
+            if (!member) throw new ConvexError("Member couldn't be found");
+            return { username: member.username };
+          }),
+      );
+
+      return { ...chat, otherMembers, otherMember: null };
     }
+  },
+});
+
+export const createGroup = mutation({
+  args: {
+    members: v.array(v.id("users")),
+    name: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const currentLoggedinUser = await ctx.auth.getUserIdentity();
+    if (!currentLoggedinUser) throw new ConvexError("Unauthorized");
+
+    const currentUser = await getUserByClerkId({
+      ctx,
+      clerkId: currentLoggedinUser.subject,
+    });
+    if (!currentUser) throw new ConvexError("User not found");
+
+    const chatId = await ctx.db.insert("chats", {
+      isGroup: true,
+      name: args.name,
+    });
+
+    await Promise.all(
+      [...args.members, currentUser._id].map(async (memberId) => {
+        await ctx.db.insert("chatMembers", {
+          memberId,
+          chatId,
+        });
+      }),
+    );
   },
 });

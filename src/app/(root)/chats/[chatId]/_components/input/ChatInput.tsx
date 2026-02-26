@@ -8,7 +8,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
-import { useRef } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { Field, FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
@@ -19,8 +18,6 @@ const chatMessageSchema = z.object({
 });
 
 export default function ChatInput() {
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
   const { chatId } = useChat();
   const { mutate: createMessage, pending } = useMutationState(
     api.message.createMessage,
@@ -48,7 +45,8 @@ export default function ChatInput() {
             ? error.data
             : "Unexpected error occured",
         );
-      });
+      })
+      .finally(() => form.setFocus("content"));
   }
 
   return (
